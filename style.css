@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: url(wallpaper.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#footer {
+  background-color: rgb(9, 9, 9);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  padding: 10px;
+  z-index: 1000;
+  border-radius: 20px 20px 0px 0px;
+}
+
+#win {
+  padding-left: 10px;
+}
+
+.image_stack {
+  margin-top: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.image_stack img {
+  max-width: 100%;
+  height: auto;
+}
