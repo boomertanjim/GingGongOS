@@ -98,50 +98,110 @@ function dragElement(elmnt) {
 }
 
 // ================================
-// ADD TODO
+// TODO LIST + PERSISTENCE
 // ================================
 
 const addTodoButtons = document.querySelectorAll(".addTodo");
 
+// Load saved todos
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+// Save todos to localStorage
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+// Create a todo on the screen
+function createTodo(todo, todoMain) {
+  const todoItem = document.createElement("div");
+  todoItem.classList.add("todoItem");
+
+  // Create label
+  const label = document.createElement("label");
+
+  // Create checkbox
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = todo.completed;
+
+  // Create custom checkbox
+  const icon = document.createElement("i");
+
+  // Create editable text
+  const text = document.createElement("span");
+  text.contentEditable = "true";
+  text.textContent = todo.text;
+
+  // Put checkbox + icon inside label
+  label.appendChild(checkbox);
+  label.appendChild(icon);
+
+  // Put label + text inside todoItem
+  todoItem.appendChild(label);
+  todoItem.appendChild(text);
+
+  // Add todo to page
+  todoMain.appendChild(todoItem);
+
+  // ================================
+  // CHECKBOX
+  // ================================
+
+  checkbox.addEventListener("change", function () {
+    todo.completed = checkbox.checked;
+
+    saveTodos();
+  });
+
+  // ================================
+  // TEXT EDITING
+  // ================================
+
+  text.addEventListener("input", function () {
+    todo.text = text.textContent;
+
+    saveTodos();
+  });
+}
+
+// ================================
+// LOAD SAVED TODOS
+// ================================
+
 addTodoButtons.forEach(function (button) {
+  const todoMain = button.closest(".todoMain");
+
+  // Display saved todos
+  todos.forEach(function (todo) {
+    createTodo(todo, todoMain);
+  });
+
+  // ================================
+  // ADD TODO BUTTON
+  // ================================
+
   button.addEventListener("click", function () {
-    // Find the todo list belonging to THIS window
-    const todoMain = button.closest(".todoMain");
+    const newTodo = {
+      text: "To-Do",
+      completed: false,
+    };
 
-    // Create todo container
-    const todoItem = document.createElement("div");
+    // Add to our array
+    todos.push(newTodo);
 
-    todoItem.classList.add("todoItem");
+    // Save immediately
+    saveTodos();
 
-    // Create label
-    const label = document.createElement("label");
+    // Display it
+    createTodo(newTodo, todoMain);
 
-    // Create checkbox
-    const checkbox = document.createElement("input");
+    // Find the newly created text
+    const items = todoMain.querySelectorAll(".todoItem");
+    const newItem = items[items.length - 1];
 
-    checkbox.type = "checkbox";
+    const text = newItem.querySelector("span");
 
-    // Create custom checkbox
-    const icon = document.createElement("i");
-
-    // Create editable text
-    const text = document.createElement("span");
-
-    text.contentEditable = "true";
-    text.textContent = "To-Do";
-
-    // Put checkbox + icon inside label
-    label.appendChild(checkbox);
-    label.appendChild(icon);
-
-    // Put label + text inside todoItem
-    todoItem.appendChild(label);
-    todoItem.appendChild(text);
-
-    // Add todo to THIS window's todo list
-    todoMain.appendChild(todoItem);
-
-    // Immediately allow user to type
+    // Focus text
     text.focus();
 
     // Select "To-Do"
@@ -240,3 +300,11 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
+
+const notePad = document.querySelector(".notepadText");
+
+notePad.value = localStorage.getItem("notepad") || "";
+
+notePad.addEventListener("input", function () {
+  localStorage.setItem("notepad", notePad.value);
+});
