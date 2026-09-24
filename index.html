@@ -3,14 +3,88 @@
   <head>
     <title>GingGongOS</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Slabo+13px&display=swap');
+    </style>
   </head>
   <body>
-    <div class="image_stack">
-      <img src="Godot_icon.svg.webp" width="60px" />
-      <img src="Godot_icon.svg.webp" width="60px" />
+    <h1 class="clock" id="clock">12:45</h1>
+    <div class="movable todoWindow">
+      <div class="movableHeader">
+        <p>To-Do</p>
+        <div class="control">
+          <div class="minimize"></div>
+          <div class="close"></div>
+        </div>
+      </div>
+      <div class="todoMain">
+        <button class="addTodo">Add To-do</button>
+        <div class="todoItem">
+          <label>
+            <input type="checkbox" name="" />
+            <i></i>
+          </label>
+          <span contenteditable="true">To-Do</span>
+        </div>
+      </div>
     </div>
+
+    <div class="movable notepadWindow">
+      <div class="movableHeader">
+        <p>NotePad</p>
+        <div class="control">
+          <div class="minimize"></div>
+          <div class="close"></div>
+        </div>
+      </div>
+      <div class="notepadMain">
+        <textarea class="notepadText" placeholder="Start typing..."></textarea>
+      </div>
+    </div>
+
+    <div class="movable photosWindow">
+      <div class="movableHeader">
+        <p>Photos</p>
+        <div class="control">
+          <div class="minimize"></div>
+          <div class="close"></div>
+        </div>
+      </div>
+      <div class="photosMain">
+        <div class="mySlides fade">
+          <div class="numberText">1 / 3</div>
+          <img src="Rover1.jpeg" width="100%" />
+          <div class="text">Cool pic of my Rover</div>
+        </div>
+        <div class="mySlides fade">
+          <div class="numberText">2 / 3</div>
+          <img src="Rover3.jpeg" width="100%" />
+          <div class="text">Damn, The Rover's good</div>
+        </div>
+        <div class="mySlides fade">
+          <div class="numberText">3 / 3</div>
+          <img src="Rover2.jpeg" width="100%" />
+          <div class="text">What is this? My rover!</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094</a>
+        <a class="next" onclick="plusSlides(1)">&#10095</a>
+      </div>
+    </div>
+
     <div id="footer">
-      <img id="win" src="Godot_icon.svg.webp" width="40px" />
+      <div class="leftAlign">
+        <img id="win" src="Godot_icon.svg.webp" width="35px" />
+      </div>
+      <div class="middleAlign">
+        <img class="taskApp todoIcon" src="todo.png" width="30px" />
+        <img class="taskApp notepadIcon" src="notepad.png" width="30px" />
+        <img class="taskApp photosIcon" src="photos.png" width="30px" />
+      </div>
+      <div class="rightAlign">
+        <img class="icons" src="wifi.svg" width="35px" />
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
